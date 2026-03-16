@@ -129,7 +129,7 @@ public class BackendServiceClient {
                 try {
                     Thread.sleep(Math.max(0, Config.brpc_connection_pool_retry_wait_time_ms));
                 } catch (InterruptedException interruptedException) {
-                    // do nothing
+                    Thread.currentThread().interrupt();
                 }
                 try {
                     final PBackendService service = BrpcProxy.getBackendService(address);
@@ -137,7 +137,8 @@ public class BackendServiceClient {
                 } catch (Throwable retryException) {
                     LOG.warn("Execute plan fragment retry failed, address={}:{}",
                             address.getHostname(), address.getPort(), retryException);
-                    throw new RpcException(address.hostname, e.getMessage());
+                    throw new RpcException(retryException.getMessage() + ", host: " + address.hostname,
+                            retryException);
                 }
             }
             LOG.warn("Execute plan fragment catch a exception, address={}:{}",
@@ -215,7 +216,7 @@ public class BackendServiceClient {
                 try {
                     Thread.sleep(Math.max(0, Config.brpc_connection_pool_retry_wait_time_ms));
                 } catch (InterruptedException interruptedException) {
-                    // do nothing
+                    Thread.currentThread().interrupt();
                 }
                 try {
                     final PBackendService service = BrpcProxy.getBackendService(address);
@@ -223,7 +224,8 @@ public class BackendServiceClient {
                 } catch (Throwable retryException) {
                     LOG.warn("Cancel plan fragment retry failed, address={}:{}",
                             address.getHostname(), address.getPort(), retryException);
-                    throw new RpcException(address.hostname, e.getMessage());
+                    throw new RpcException(retryException.getMessage() + ", host: " + address.hostname,
+                            retryException);
                 }
             }
             LOG.warn("Cancel plan fragment catch a exception, address={}:{}",

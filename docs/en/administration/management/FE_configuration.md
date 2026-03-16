@@ -617,7 +617,7 @@ ADMIN SET FRONTEND CONFIG ("key" = "value");
 
 ##### `brpc_connection_pool_retry_wait_time_ms`
 
-- Default: 10000
+- Default: 10
 - Type: Int
 - Unit: ms
 - Is mutable: Yes

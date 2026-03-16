@@ -616,7 +616,7 @@ ADMIN SET FRONTEND CONFIG ("key" = "value");
 
 ##### `brpc_connection_pool_retry_wait_time_ms`
 
-- 默认值: 10000
+- 默认值: 10
 - 类型: Int
 - 单位: 毫秒
 - 是否可变: Yes
